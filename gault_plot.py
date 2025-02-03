@@ -70,7 +70,7 @@ xds = xr.Dataset(dic)
 
 # Extract x values and variables
 distance = xds.distance.values
-distance_labels = distance[0].astype(str)
+distance_labels = distance[time_index].astype(str)
 distance = np.arange(len(distance[time_index]))
 ice = xds["ice_thickness"].values
 slush = xds["slush_thickness"].values
@@ -122,7 +122,7 @@ ax.set_ylabel(
     ha="right",
     position=(0, 0.9),
 )
-ax.set_title(xds.coords["time"].dt.strftime("%Y-%m-%d").values[0])
+ax.set_title(xds.coords["time"].dt.strftime("%Y-%m-%d").values[time_index])
 ax.set_ylim((np.min(-snow[time_index] - slush[time_index] - ice[time_index]) - 5, 3))
 ax.set_xlim((0, np.max(distance)))
 
@@ -131,7 +131,7 @@ ylenght = ax.get_ylim()[0]
 ax.plot(
     np.ones(10) * distance[zoom_start],
     np.linspace(
-        -snow[0, zoom_start],
+        -snow[time_index, zoom_start],
         ylenght,
         10,
     ),
@@ -141,7 +141,7 @@ ax.plot(
 ax.plot(
     np.ones(10) * distance[zoom_end],
     np.linspace(
-        -snow[0, zoom_end],
+        -snow[time_index, zoom_end],
         ylenght,
         10,
     ),
