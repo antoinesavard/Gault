@@ -15,6 +15,48 @@ zoom_end = -2
 buoy_index = -3
 # ---------------------------------------------------------------
 
+
+def draw_arrow(ax, direction, length=0.1, color="black", label=None):
+    """Draw an arrow indicating North at (x, y) in the given direction."""
+
+    # Define arrow positions and offsets in figure coordinates
+    positions = {
+        "top": (-0.2, 0.15, 0, length, "center", "bottom"),  # Center-top
+        "bottom": (-0.2, 0.25, 0, -length, "center", "top"),  # Center-bottom
+        "right": (-0.25, 0.2, length, 0, "left", "center"),  # Right-center
+        "left": (-0.15, 0.2, -length, 0, "right", "center"),  # Left-center
+    }
+
+    if direction not in positions:
+        raise ValueError(
+            "Direction of North must be 'top', 'bottom', 'right', or 'left'"
+        )
+
+    x, y, dx, dy, ha, va = positions[direction]
+
+    ax.annotate(
+        "",
+        xy=(x + dx, y + dy),
+        xytext=(x, y),
+        arrowprops=dict(arrowstyle="->", lw=2, color=color),
+        xycoords=ax.transAxes,
+    )  # Use axes coordinates
+
+    # Add label at the tip of the arrow
+    if label:
+        ax.text(
+            x + dx,
+            y + dy,
+            label,
+            color=color,
+            fontsize=12,
+            fontweight="bold",
+            ha=ha,
+            va=va,
+            transform=ax.transAxes,
+        )
+
+
 # structure
 # data array
 da_ice = xr.DataArray(
@@ -110,6 +152,9 @@ ax.stackplot(
     colors=["xkcd:baby blue", "xkcd:dark blue", "xkcd:bright blue"],
     labels=["snow", "slush", "ice"],
 )
+
+# arrow
+draw_arrow(ax, "left", color="k", label="N")
 
 # Labels and title and legend
 ax.set_xlabel("Distance [m]")
