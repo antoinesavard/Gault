@@ -13,6 +13,7 @@ time_index = 0
 zoom_start = 7
 zoom_end = -2
 buoy_index = -3
+north_dir = "left"
 # ---------------------------------------------------------------
 
 
@@ -154,7 +155,7 @@ ax.stackplot(
 )
 
 # arrow
-draw_arrow(ax, "left", color="k", label="N")
+draw_arrow(ax, north_dir, color="k", label="N")
 
 # Labels and title and legend
 ax.set_xlabel("Distance [m]")
