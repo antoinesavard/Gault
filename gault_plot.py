@@ -159,7 +159,9 @@ ax.legend(
 )
 
 # Show plot
-plt.savefig("gault_" + xds.coords["time"].dt.strftime("%Y-%m-%d").values[0] + ".pdf")
+plt.savefig(
+    "plots/gault_" + xds.coords["time"].dt.strftime("%Y-%m-%d").values[0] + ".pdf"
+)
 
 # Save to netCDF
 xds.to_netcdf("gault.nc")
