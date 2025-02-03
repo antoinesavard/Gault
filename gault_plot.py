@@ -85,7 +85,7 @@ pos = ax.get_position()
 width = pos.width
 height = pos.height
 aspect_ratio = (
-    (-np.min(-snow[time_index] - slush[time_index] - ice[time_index]) + 7)
+    (-np.min(-snow[time_index] - slush[time_index] - ice[time_index]) + 8)
     / np.max(distance)
     / (height / width)
 )
